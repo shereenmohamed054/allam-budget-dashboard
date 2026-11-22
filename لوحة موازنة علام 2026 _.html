@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لوحة موازنة علام 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#86a94c; --panel:#eef6fd; --card:#fff; --ink:#1d2433; --mute:#7b8798; --line:#e3ecf6;
+  --g:#7ed40f; --y:#ffc22b; --r:#ff7f5a; --b:#2fb5e8;
+  --tg:#e6f4d7; --ty:#fff1cc; --tr:#fde5dd; --neutral:#f3f7fc;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);font-family:'Cairo',system-ui,-apple-system,'Segoe UI',Tahoma,sans-serif;color:var(--ink);padding:28px 20px 40px;min-height:100vh}
+.n{direction:ltr;unicode-bidi:isolate;display:inline-block}
+.frame{max-width:1180px;margin:0 auto;background:#fff;border-radius:30px;box-shadow:0 30px 50px -20px rgba(30,50,10,.35);overflow:hidden}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
+.logo svg{display:block}
+.nav{display:flex;gap:6px;flex-wrap:wrap}
+.nav button{font:inherit;font-size:13px;font-weight:600;color:var(--mute);background:none;border:0;padding:8px 14px;border-radius:999px;cursor:pointer;transition:.15s}
+.nav button:hover{color:var(--ink)}
+.nav button.on{color:var(--ink);background:var(--panel)}
+.pill-top{font-size:12px;font-weight:600;color:var(--mute);background:var(--panel);padding:7px 14px;border-radius:999px}
+.panel{background:var(--panel);border-radius:30px 30px 0 0;padding:26px 28px 34px}
+.head{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:22px}
+h1{font-size:34px;font-weight:800;margin:0;letter-spacing:-.3px}
+.select{position:relative}
+.select select{appearance:none;-webkit-appearance:none;font:inherit;font-size:13px;font-weight:600;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 18px 8px 36px;cursor:pointer}
+.select::after{content:'';position:absolute;left:15px;top:50%;width:6px;height:6px;border-left:2px solid var(--mute);border-bottom:2px solid var(--mute);transform:translateY(-70%) rotate(-45deg);pointer-events:none}
+.chips{display:flex}
+.chips span{width:26px;height:26px;border-radius:50%;border:2px solid var(--panel);margin-inline-start:-8px;display:grid;place-items:center;font-size:10px;font-weight:700}
+.chips span:first-child{margin-inline-start:0}
+.grow{flex:1}
+.alertbtn{position:relative;font:inherit;font-size:13px;font-weight:600;background:none;border:0;color:var(--ink);display:flex;align-items:center;gap:8px;cursor:pointer;padding:6px 10px;border-radius:999px}
+.alertbtn:hover{background:#fff}
+.badge{background:var(--r);color:#fff;border-radius:999px;font-size:11px;font-weight:700;padding:1px 8px}
+.pop{position:absolute;top:calc(100% + 8px);inset-inline-end:0;width:300px;background:#fff;border-radius:18px;box-shadow:0 18px 40px -10px rgba(20,40,80,.25);padding:16px 18px;z-index:30;display:none;text-align:start}
+.pop.show{display:block}
+.pop h4{margin:0 0 4px;font-size:14px}
+.pop p{margin:0 0 10px;font-size:12px;color:var(--mute)}
+.pop li{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-top:1px solid var(--line)}
+.pop ul{list-style:none;margin:0;padding:0}
+.card{background:var(--card);border-radius:22px;padding:22px 26px}
+.row1{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;margin-bottom:22px}
+.kpis{display:flex;gap:26px;align-items:flex-start;justify-content:space-around;flex-wrap:wrap}
+.kpi .lbl{font-size:14px;font-weight:700;line-height:1.35;color:var(--ink)}
+.kpi .big{font-size:40px;font-weight:800;line-height:1.1;margin-top:2px}
+.kpi .sub{font-size:11.5px;color:var(--mute);margin-top:10px;line-height:1.5}
+.kpi .sub b{color:var(--ink)}
+.kpiwrap{display:flex;align-items:flex-end;gap:14px}
+.cup{width:112px;height:104px;flex:none}
+.cup .fill{transform-box:fill-box;transform-origin:bottom;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.bubbles{width:138px;height:112px;flex:none}
+.bubbles circle{transition:opacity .15s}
+.bubbles circle:hover{opacity:.78}
+.status{display:flex;gap:8px;border-radius:22px;overflow:hidden;min-height:176px}
+.scard{appearance:none;border:0;font:inherit;text-align:start;color:var(--ink);padding:56px 18px 16px;cursor:pointer;display:flex;flex-direction:column;justify-content:flex-end;position:relative;min-width:138px;transition:filter .15s,transform .15s;border-radius:22px}
+.scard:hover{filter:brightness(1.04)}
+.scard.sel{box-shadow:inset 0 0 0 3px #fff, 0 0 0 3px var(--ink);z-index:2}
+.scard.g{background:var(--g)} .scard.y{background:var(--y)} .scard.r{background:var(--r)}
+.scard .num{font-size:38px;font-weight:800;line-height:1}
+.scard .t{font-size:12px;font-weight:700;margin-top:6px;line-height:1.4}
+.scard .m{font-size:11px;margin-top:4px;opacity:.8;line-height:1.4}
+.scard .dot{position:absolute;top:14px;inset-inline-end:14px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.55);display:grid;place-items:center;font-size:15px}
+.cardhead{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.cardhead h2{font-size:18px;font-weight:800;margin:0}
+.seg{display:flex;gap:4px;background:var(--panel);padding:4px;border-radius:999px}
+.seg button{font:inherit;font-size:12.5px;font-weight:600;color:var(--mute);background:none;border:0;padding:6px 14px;border-radius:999px;cursor:pointer}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--mute);align-items:center}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-inline-end:6px;vertical-align:-1px}
+.legend i.o{border-radius:50%}
+.summary{font-size:13px;color:var(--mute);margin:0 0 6px}
+.summary b{color:var(--ink)}
+.chartbox{position:relative}
+svg text{font-family:'Cairo',system-ui,sans-serif}
+.col .hit{fill:transparent;transition:fill .12s}
+.col:hover .hit{fill:#eef6fd}
+.row2{margin-bottom:22px}
+.tcard{padding:22px 22px 14px}
+.thead{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px;padding-inline:4px}
+.thead h2{font-size:18px;font-weight:800;margin:0}
+.scroll{max-height:560px;overflow:auto;margin-inline:-6px;padding-inline:6px}
+table{width:100%;border-collapse:separate;border-spacing:0 8px;min-width:760px}
+thead th{position:sticky;top:-1px;z-index:3;background:#fff;font-size:11.5px;font-weight:600;color:var(--mute);padding:6px 10px;text-align:center;white-space:nowrap;cursor:pointer;user-select:none}
+thead th:first-child{text-align:start}
+thead th .ar{font-size:9px;margin-inline-start:4px;opacity:.5}
+thead th.sorted{color:var(--ink)} thead th.sorted .ar{opacity:1}
+tbody td{padding:6px 10px;text-align:center;font-size:13.5px;font-weight:700;background:var(--neutral);height:58px}
+tbody td:first-child{border-radius:0 16px 16px 0;text-align:start;font-weight:600;padding-inline-start:18px;font-size:13px}
+tbody td:last-child{border-radius:16px 0 0 16px}
+tbody tr.g td{background:var(--tg)} tbody tr.y td{background:var(--ty)} tbody tr.r td{background:var(--tr)}
+tbody tr.tot td{background:#fff;border-top:2px solid var(--line);border-radius:0;height:50px}
+.muted{color:var(--mute);font-weight:600}
+.bar{position:relative;width:128px;height:30px;margin:auto;background:#fff;border-radius:7px;overflow:hidden;direction:rtl}
+.bar i{position:absolute;inset-block:0;inset-inline-start:0;border-radius:7px}
+.bar i.g{background:var(--g)} .bar i.y{background:var(--y)} .bar i.r{background:var(--r)} .bar i.b{background:#60C1E5}
+.bar span{position:absolute;inset:0;display:grid;place-items:center;font-size:13.5px;font-weight:800;color:var(--ink)}
+.bub{margin:auto;border-radius:50%;display:grid;place-items:center;font-weight:800;color:var(--ink);font-size:12px;transition:transform .15s;cursor:default}
+.bub:hover{transform:scale(1.08)}
+.bub.g{background:var(--g)} .bub.y{background:var(--y)} .bub.r{background:var(--r)} .bub.x{background:#dfe8f3;color:var(--mute)} .bub.b{background:#A0E0EF}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:999px;background:#fff;color:var(--mute)}
+.tag.y{background:#ffe9a8;color:#6b4b00} .tag.r{background:#ffd2c4;color:#7a2a10}
+.gchips{display:flex;gap:6px;flex-wrap:wrap}
+.gchips button{font:inherit;font-size:12px;font-weight:600;border:1px solid var(--line);background:#fff;color:var(--mute);padding:5px 12px;border-radius:999px;cursor:pointer}
+.gchips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.clear{font:inherit;font-size:12px;font-weight:600;border:0;background:var(--panel);color:var(--ink);padding:5px 12px;border-radius:999px;cursor:pointer}
+.notes{margin-top:18px;font-size:12.5px;color:var(--mute);line-height:1.8}
+.notes summary{cursor:pointer;font-weight:700;color:var(--ink);font-size:13.5px}
+.notes ul{margin:8px 0 0;padding-inline-start:20px}
+#tip{position:fixed;z-index:100;pointer-events:none;background:#1B365D;color:#fff;border-radius:12px;padding:9px 13px;font-size:12.5px;line-height:1.65;max-width:290px;opacity:0;transition:opacity .1s;box-shadow:0 10px 24px rgba(0,0,0,.25)}
+#tip b{font-weight:700}
+#tip .d{opacity:.7}
+@media (max-width:900px){
+  .row1{grid-template-columns:1fr}
+  h1{font-size:26px}
+  .topbar{flex-wrap:wrap;padding:14px 16px}
+  .panel{padding:18px 14px 26px}
+  .card{padding:18px}
+  .tcard{padding:16px 12px 10px}
+}
+@media (max-width:520px){ body{padding:10px 6px 24px} .status{flex-wrap:wrap} .pill-top{display:none} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+:root{--bg:#dfeef5;--panel:#f2f9fc;--ink:#1B365D;--mute:#5f7690;--line:#dbeaf2;--g:#5fb54a;--y:#f4bb3d;--r:#ee7a5c;--navy:#1B365D;--b:#005A9C;--tg:#eaf5e4;--ty:#fdf3d9;--tr:#fbe8e2;--neutral:#eef6fa}
+body{padding:24px 16px 40px;font-variant-numeric:tabular-nums}
+.frame{border-radius:20px;box-shadow:0 12px 40px -18px rgba(20,40,70,.28);border:1px solid var(--line)}
+.panel{border-radius:0;border-top:1px solid var(--line);padding:26px 28px 30px}
+h1{font-size:26px;letter-spacing:0}
+.subtitle{font-size:13px;color:var(--mute);margin-top:4px}
+.card{border-radius:16px;padding:20px 24px;border:1px solid var(--line)}
+.nav button.on{color:#fff;background:var(--navy)}
+.pill-top{border:1px solid var(--line)}
+.kpis4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:16px}
+.kcard{display:flex;flex-direction:column;gap:6px;min-height:156px}
+.kcard .kl{font-size:13px;font-weight:700;color:var(--mute)}
+.kcard .kv{font-size:32px;font-weight:800;line-height:1.1;color:var(--navy)}
+.kcard .ks{font-size:12px;color:var(--mute);line-height:1.6}
+.kcard .ks b{color:var(--ink)}
+.krow{display:flex;align-items:center;gap:14px}
+.ring{flex:none}
+.delta{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;margin-top:auto;align-self:flex-start}
+.delta.g{background:var(--tg);color:#2f6b1f}.delta.y{background:var(--ty);color:#7a5400}.delta.r{background:var(--tr);color:#8a3419}.delta.x{background:var(--neutral);color:var(--mute)}
+.row2g{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;margin-bottom:16px}
+.card h3{font-size:15px;font-weight:800;margin:0 0 4px}
+.card .hint{font-size:12px;color:var(--mute);margin:0 0 14px}
+.stack{display:flex;gap:2px;height:22px;border-radius:6px;overflow:hidden;margin-bottom:14px}
+.stack i{display:block;height:100%;transition:opacity .15s}
+.stack i:hover{opacity:.75}
+.cl{display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+.cl div{display:flex;align-items:center;gap:8px;font-size:12.5px}
+.cl i{width:10px;height:10px;border-radius:3px;flex:none}
+.cl span.v{margin-inline-start:auto;font-weight:700}
+.status{display:flex;gap:8px;min-height:130px;border-radius:0;overflow:visible}
+.scard{padding:16px;min-width:0;border-radius:14px}
+.scard .num{font-size:30px}
+.scard.g{color:#0f3a05}
+.scard.sel{box-shadow:inset 0 0 0 3px #fff,0 0 0 3px var(--navy)}
+.seg button.on{background:var(--navy);color:#fff;box-shadow:none}
+.gchips button.on{background:var(--navy);border-color:var(--navy)}
+.col:hover .hit{fill:#e8f5fb}
+tbody td:first-child{border-radius:0 12px 12px 0}
+tbody td:last-child{border-radius:12px 0 0 12px}
+@media (max-width:900px){.kpis4{grid-template-columns:repeat(2,minmax(0,1fr))}.row2g{grid-template-columns:1fr}}
+@media (max-width:520px){.kpis4{grid-template-columns:1fr}.status{flex-wrap:wrap}.scard{flex:1 1 40%!important}.cl{grid-template-columns:1fr}}
+@media print{body{background:#fff;padding:0}.frame{box-shadow:none;border:0}.nav,.alertbtn,.select{display:none}.scroll{max-height:none;overflow:visible}thead th{position:static}}
+
+.pal-brand tbody tr.g td{background:#e9f7fc}.pal-brand tbody tr.y td{background:#dcebf5}.pal-brand tbody tr.r td{background:#d3dbe8}
+.pal-brand tbody tr.tot td{background:#fff}
+.pal-brand .bub.g{background:#60C1E5;color:#1B365D}.pal-brand .bub.y{background:#005A9C;color:#fff}.pal-brand .bub.r{background:#1B365D;color:#fff}
+.pal-brand .bar i.g{background:#60C1E5}.pal-brand .bar i.y{background:#005A9C}.pal-brand .bar i.r{background:#1B365D}
+.pal-brand .bar>span{display:block;direction:rtl;text-align:right;padding:0 12px;line-height:30px;color:#1B365D}
+.pal-brand .bar i.y+span,.pal-brand .bar i.r+span{color:#fff}.pal-brand .bar i.g+span{color:#1B365D}
+.pal-brand .bar span span{position:static;display:inline-block;inset:auto;color:inherit;font-size:13.5px}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="topbar">
+    <div class="logo">
+      <svg width="64" height="20" viewBox="0 0 64 20" aria-hidden="true"><rect x="1" y="3" width="13" height="13" rx="4" fill="#1B365D"/><circle cx="25" cy="9.5" r="7" fill="#005A9C"/><path d="M38 2l7.5 7.5L38 17l-7.5-7.5z" fill="#60C1E5"/><rect x="50" y="3" width="13" height="13" rx="6.5" fill="#A0E0EF"/></svg>
+      <span>علام</span>
+    </div>
+    <nav class="nav" id="nav" aria-label="أقسام اللوحة">
+      <button data-mode="months" class="on">نظرة عامة</button>
+      <button data-mode="opex">المصروفات</button>
+      <button data-mode="cust">العملاء</button>
+      <button data-mode="budget">بنود الموازنة</button>
+    </nav>
+    <div class="pill-top">تقرير موازنة 2026</div>
+  </div>
+
+  <main class="panel">
+    <div class="head">
+      <div>
+        <h1>موازنة 2026: الفعلي مقابل المخطط</h1>
+        <div class="subtitle">شركة علام للتوريدات الغذائية · الأرقام بالجنيه المصري · البيانات الفعلية حتى أكتوبر 2026</div>
+      </div>
+      <div class="grow"></div>
+      <div class="select"><select id="period" aria-label="الفترة"></select></div>
+      <div style="position:relative">
+        <button class="alertbtn" id="alertBtn" aria-expanded="false" style="background:#fff;border:1px solid var(--line)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 003.4 0"/></svg>
+          ملاحظات جودة البيانات <span class="badge" id="alertTotal"></span>
+        </button>
+        <div class="pop" id="pop" role="dialog"></div>
+      </div>
+    </div>
+
+    <section class="kpis4" id="kpis"></section>
+
+    <section class="row2g">
+      <div class="card">
+        <h3>توزيع إيرادات الموازنة السنوية</h3>
+        <p class="hint">إجمالي <span class="n" id="compTot"></span> مليون جنيه · مرّر على الشريط للتفاصيل</p>
+        <div class="stack" id="stack"></div>
+        <div class="cl" id="cl"></div>
+      </div>
+      <div class="card">
+        <h3>الحالة الائتمانية للعملاء</h3>
+        <p class="hint">اضغط على أي فئة لعرض عملائها في الجدول أدناه</p>
+        <div class="status" id="status"></div>
+      </div>
+    </section>
+
+    <section class="card row2">
+      <div class="cardhead">
+        <h2 id="chartTitle">الفعلي مقابل الموازنة شهرياً</h2>
+        <div class="seg" id="metricSeg">
+          <button data-m="sales" class="on">المبيعات</button>
+          <button data-m="cost">التكلفة</button>
+          <button data-m="opex">المصروفات</button>
+          <button data-m="profit">صافي الربح</button>
+        </div>
+        <div class="grow"></div>
+        <div class="legend" id="chartLegend"></div>
+      </div>
+      <p class="summary" id="chartSum"></p>
+      <div class="chartbox"><svg id="chart" viewBox="0 0 1000 300" width="100%" role="img" aria-label="رسم أعمدة شهري للفعلي مقابل الموازنة"></svg></div>
+    </section>
+
+    <section class="card tcard">
+      <div class="thead">
+        <h2 id="tTitle"></h2>
+        <div id="tExtra" class="gchips"></div>
+        <div class="grow"></div>
+        <div class="legend" id="tLegend"></div>
+      </div>
+      <div class="scroll"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+    </section>
+
+    <details class="notes card" open style="margin-top:22px">
+      <summary>ملاحظات المنهجية وجودة البيانات</summary>
+      <ul>
+        <li>تكلفة المبيعات الفعلية = المشتريات من الموردين بالجنيه (افتراض تقريبي لعدم وجود تبويب تكلفة فعلية)، وفواتير الدولار التي بلا سعر صرف غير محسوبة.</li>
+        <li>تبويب المصروفات العامة ينتهي قبل أكتوبر، لذلك لا يوجد فعلي لمصروفات أكتوبر ولا لصافي ربحه.</li>
+        <li>الفرق الكبير عن الموازنة قد يعود لاختلاف مصادر الأرقام بين التبويبات الفعلية والموازنة؛ لم يُعدَّل أي رقم.</li>
+        <li>مبيعات بلا تاريخ <span class="n">1,196,153</span> ج، ومشتريات بلا تاريخ <span class="n">2,011,944</span> ج، مستبعدة من الأشهر. وتحصيلات بلا اسم عميل <span class="n">42,993</span> ج غير منسوبة لأي عميل.</li>
+        <li>أشهر الموازنة الفارغة في الأصل تظهر فارغة ولم يُخترع لها رقم. نوفمبر وديسمبر موازنة فقط ولا يوجد لهما فعلي.</li>
+      </ul>
+    </details>
+  <p class="notes" style="margin:14px 4px 0;font-size:11.5px">المصدر: ملف «موازنة وحركة شركة علام للتوريدات الغذائية 2026» بعد التنظيف. جميع الأرقام كما وردت في الملف دون تعديل.</p>
+  </main>
+</div>
+<div id="tip" role="tooltip"></div>
+
+<script>
+const D = {
+"totals": {
+"عدد فواتير المبيعات (بعد حذف المكرر)": 430,
+"إجمالي المبيعات قبل الضريبة": 29697612,
+"ضريبة القيمة المضافة على المبيعات (14%)": 4157665.68,
+"صافي المبيعات شامل الضريبة": 33855277.68,
+"إجمالي التحصيلات (داخل)": 8731356.63,
+"إجمالي المشتريات بالجنيه": 36698161.73,
+"إجمالي المدفوعات (خارج)": 14303798.08,
+"المصروفات العامة قبل الضريبة": 3895634.51,
+"ضريبة المصروفات العامة": 545388.82,
+"المصروفات العامة شامل الضريبة": 4441023.33,
+"قيمة المخزون (الكمية × التكلفة)": 57298934.404,
+"إجمالي الموازنة: الإيرادات": 39207900,
+"إجمالي الموازنة: تكلفة المبيعات": 21070600,
+"إجمالي الموازنة: المصروفات التشغيلية": 9224200,
+"إجمالي الموازنة: صافي الربح": 8913100,
+"فواتير المبيعات": 51,
+"مشتريات الموردين": 41,
+"التحصيلات": 67,
+"مدفوعات": 39,
+"بيانات العملاء": 29,
+"المخزون": 29,
+"مصروفات عامة": 33
+},
+"alerts": {
+"فواتير المبيعات": 51,
+"مشتريات الموردين": 41,
+"التحصيلات": 67,
+"مدفوعات": 39,
+"بيانات العملاء": 29,
+"المخزون": 29,
+"مصروفات عامة": 33
+},
+"cust": [
+{
+"code": "C-001",
+"name": "سوبر ماركت النور",
+"limit": 200000,
+"open": 141663.06,
+"sales": 801889.68,
+"paid": 88187,
+"bal": 855365.74,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-002",
+"name": "هايبر الأمانة",
+"limit": 50000,
+"open": 34247.8,
+"sales": 199762.2,
+"paid": 315228.27,
+"bal": -81218.27,
+"status": "رصيد دائن"
+},
+{
+"code": "C-003",
+"name": "شركة الصفوة للتجارة",
+"limit": 100000,
+"open": 142464.11,
+"sales": 1858373.28,
+"paid": 174781.93,
+"bal": 1826055.46,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-004",
+"name": "مطاعم السلطان",
+"limit": 100000,
+"open": 186404.71,
+"sales": 516096.24,
+"paid": 64397.11,
+"bal": 638103.84,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-005",
+"name": "فندق النيل جراند",
+"limit": 200000,
+"open": 135297.55,
+"sales": 995514.12,
+"paid": 241498.23,
+"bal": 889313.44,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-006",
+"name": "مخبز الريف",
+"limit": 100000,
+"open": 194846,
+"sales": 860994.12,
+"paid": 251003.48,
+"bal": 804836.64,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-007",
+"name": "مستشفى الشفاء",
+"limit": 100000,
+"open": 53566,
+"sales": 1270473,
+"paid": 308778.1,
+"bal": 1015260.9,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-008",
+"name": "كافيتريا الجامعة الحديثة",
+"limit": 500000,
+"open": 191608.53,
+"sales": 1402911.36,
+"paid": 290266.8,
+"bal": 1304253.09,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-009",
+"name": "شركة دلتا للأغذية",
+"limit": null,
+"open": 136234.5,
+"sales": -122479.32,
+"paid": 80021,
+"bal": -66265.82,
+"status": "حد غير محدد"
+},
+{
+"code": "C-010",
+"name": "مجمع الوفاء التجاري",
+"limit": 200000,
+"open": 96156.85,
+"sales": 920697.06,
+"paid": 228210.2,
+"bal": 788643.71,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-011",
+"name": "سلسلة بقالة الخير",
+"limit": 200000,
+"open": 18020.22,
+"sales": 575010.3,
+"paid": 110454.97,
+"bal": 482575.55,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-012",
+"name": "مدارس المستقبل الدولية",
+"limit": 100000,
+"open": 56358,
+"sales": 810323.4,
+"paid": 61428.35,
+"bal": 805253.05,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-013",
+"name": "كافيه لاونج الزهور",
+"limit": 200000,
+"open": 80929,
+"sales": 864775.5,
+"paid": 260321.13,
+"bal": 685383.37,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-014",
+"name": "شركة الأهرام للضيافة",
+"limit": 50000,
+"open": 53378.05,
+"sales": 1078388.7,
+"paid": 361686.5,
+"bal": 770080.25,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-015",
+"name": "مطعم بيت الشام",
+"limit": 300000,
+"open": 48303.83,
+"sales": 841174.08,
+"paid": 221115.69,
+"bal": 668362.22,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-016",
+"name": "جملة الأمل",
+"limit": 50000,
+"open": -5849,
+"sales": 175427.76,
+"paid": 247797.88,
+"bal": -78219.12,
+"status": "رصيد دائن"
+},
+{
+"code": "C-017",
+"name": "تموين الصعيد",
+"limit": 200000,
+"open": 94082.11,
+"sales": 997192.2,
+"paid": 89268.4,
+"bal": 1002005.91,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-018",
+"name": "شركة النخبة للتغذية",
+"limit": 300000,
+"open": 92265.78,
+"sales": 1058312.16,
+"paid": 152503.53,
+"bal": 998074.41,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-019",
+"name": "فنادق الواحة",
+"limit": 200000,
+"open": 0,
+"sales": 976280.04,
+"paid": 183097.31,
+"bal": 793182.73,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-020",
+"name": "مصنع الحلوى الذهبية",
+"limit": 500000,
+"open": 134582.69,
+"sales": 687275.22,
+"paid": 316964.93,
+"bal": 504892.98,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-021",
+"name": "سوبر ماركت الفجر",
+"limit": 500000,
+"open": 270577,
+"sales": 142917.24,
+"paid": 212810.24,
+"bal": 200684,
+"status": "ضمن الحد"
+},
+{
+"code": "C-022",
+"name": "هايبر السلام",
+"limit": 300000,
+"open": 139184,
+"sales": 1012448.82,
+"paid": 277334.97,
+"bal": 874297.85,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-023",
+"name": "مخبز البركة",
+"limit": 300000,
+"open": 147534.66,
+"sales": 308238.9,
+"paid": 319642.46,
+"bal": 136131.1,
+"status": "ضمن الحد"
+},
+{
+"code": "C-024",
+"name": "مطعم الدلتا",
+"limit": 50000,
+"open": 169981.77,
+"sales": 251566.08,
+"paid": 128055.59,
+"bal": 293492.26,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-025",
+"name": "شركة المحروسة للتوريدات",
+"limit": 50000,
+"open": 75955,
+"sales": 912884.64,
+"paid": 194128.96,
+"bal": 794710.68,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-026",
+"name": "مدينة الطلبة",
+"limit": 200000,
+"open": -9109,
+"sales": 2220701.76,
+"paid": 204172.24,
+"bal": 2007420.52,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-027",
+"name": "شركة الرواد للتجارة",
+"limit": 50000,
+"open": 102405,
+"sales": 684513,
+"paid": 445773.72,
+"bal": 341144.28,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-028",
+"name": "بقالة التوفيق",
+"limit": 50000,
+"open": 140735.74,
+"sales": 1919110.2,
+"paid": 197074.68,
+"bal": 1862771.26,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-029",
+"name": "كافيتريا المصنع الأول",
+"limit": 500000,
+"open": -6531,
+"sales": 183074.88,
+"paid": 293563.62,
+"bal": -117019.74,
+"status": "رصيد دائن"
+},
+{
+"code": "C-030",
+"name": "مجموعة الحياة الطبية",
+"limit": 100000,
+"open": 97344,
+"sales": 384558.48,
+"paid": 330289.23,
+"bal": 151613.25,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-031",
+"name": "نادي الصيد الرياضي",
+"limit": 50000,
+"open": 45641,
+"sales": 495824.76,
+"paid": 144403.85,
+"bal": 397061.91,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-032",
+"name": "نادي الشمس",
+"limit": 300000,
+"open": 203092.55,
+"sales": 1137969.66,
+"paid": 195084.25,
+"bal": 1145977.96,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-033",
+"name": "كيترنج الفرح",
+"limit": 200000,
+"open": 132407.36,
+"sales": 613017.9,
+"paid": 160411.97,
+"bal": 585013.29,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-034",
+"name": "كيترنج المائدة",
+"limit": 50000,
+"open": 22975.79,
+"sales": -54938.88,
+"paid": 392751.7,
+"bal": -424714.79,
+"status": "رصيد دائن"
+},
+{
+"code": "C-035",
+"name": "مطعم الجمهورية",
+"limit": 300000,
+"open": 94149.29,
+"sales": 767689.68,
+"paid": 121684.92,
+"bal": 740154.05,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-036",
+"name": "سوبر ماركت الهدى",
+"limit": 50000,
+"open": 55078,
+"sales": 1710913.14,
+"paid": 166450.16,
+"bal": 1599540.98,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-037",
+"name": "جمعية الرحمة",
+"limit": 300000,
+"open": -24428,
+"sales": 522278.46,
+"paid": 134462,
+"bal": 363388.46,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-038",
+"name": "محلات الإخوة",
+"limit": null,
+"open": 127833.11,
+"sales": 438686.82,
+"paid": 166622.16,
+"bal": 399897.77,
+"status": "حد غير محدد"
+},
+{
+"code": "C-039",
+"name": "شركة مصر الوسطى للتجارة",
+"limit": 100000,
+"open": 232921.41,
+"sales": 1079247.12,
+"paid": 25081.56,
+"bal": 1287086.97,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-040",
+"name": "هايبر القاهرة الجديدة",
+"limit": 50000,
+"open": 144023.09,
+"sales": 1129834.62,
+"paid": 146327,
+"bal": 1127530.71,
+"status": "تجاوز الحد الائتماني"
+},
+{
+"code": "C-041",
+"name": "مخبز النور",
+"limit": 300000,
+"open": -803,
+"sales": 379813.8,
+"paid": 251053.04,
+"bal": 127957.76,
+"status": "ضمن الحد"
+},
+{
+"code": "C-042",
+"name": "مطعم أبو السيد",
+"limit": 200000,
+"open": 150976.24,
+"sales": 36041.1,
+"paid": 78540.89,
+"bal": 108476.45,
+"status": "ضمن الحد"
+},
+{
+"code": "C-043",
+"name": "شركة العاصمة للأغذية",
+"limit": 200000,
+"open": 0,
+"sales": 810494.4,
+"paid": 55633.61,
+"bal": 754860.79,
+"status": "تجاوز الحد الائتماني"
+}
+],
+"unassigned": 42993.0000000019,
+"custTot": {
+"open": 4196503.8,
+"sales": 33855277.68,
+"paid": 8731356.63,
+"bal": 29320424.85
+},
+"months": [
+{
+"m": "يناير",
+"bS": 2952400,
+"aS": 2238545,
+"bC": 1550400,
+"aC": 4894624.73,
+"bO": 724800,
+"aO": 285290.1,
+"bP": 767900,
+"aP": -2941369.83
+},
+{
+"m": "فبراير",
+"bS": 3632100,
+"aS": 2062512,
+"bC": 2143300,
+"aC": 1500125.75,
+"bO": 679900,
+"aO": 303260.51,
+"bP": 918500,
+"aP": 259125.74
+},
+{
+"m": "مارس",
+"bS": 4612000,
+"aS": 2279134,
+"bC": 2459400,
+"aC": 2342345.99,
+"bO": 1081300,
+"aO": 448398.83,
+"bP": 1201900,
+"aP": -511610.82
+},
+{
+"m": "أبريل",
+"bS": 3241400,
+"aS": 2348033,
+"bC": 1759900,
+"aC": 2872329.58,
+"bO": 572500,
+"aO": 589335.67,
+"bP": 994200,
+"aP": -1113632.25
+},
+{
+"m": "مايو",
+"bS": 2709400,
+"aS": 2644555,
+"bC": 1243200,
+"aC": 5181069.68,
+"bO": 715600,
+"aO": 689593.12,
+"bP": 839300,
+"aP": -3226107.8
+},
+{
+"m": "يونيو",
+"bS": 3307700,
+"aS": 2608646,
+"bC": 1428600,
+"aC": 1802399.73,
+"bO": 696200,
+"aO": 395133.94,
+"bP": 1285800,
+"aP": 411112.33
+},
+{
+"m": "يوليو",
+"bS": 2244700,
+"aS": 4390832,
+"bC": 1850500,
+"aC": 4475640.82,
+"bO": 779900,
+"aO": 472307.98,
+"bP": -277900,
+"aP": -557116.8
+},
+{
+"m": "أغسطس",
+"bS": 3288100,
+"aS": 2074609,
+"bC": 1191400,
+"aC": 5321148.97,
+"bO": 800400,
+"aO": 201402.92,
+"bP": 1389300,
+"aP": -3447942.89
+},
+{
+"m": "سبتمبر",
+"bS": 3034800,
+"aS": 3337818,
+"bC": 1878400,
+"aC": 4495953.82,
+"bO": 748200,
+"aO": 494916.44,
+"bP": 500900,
+"aP": -1653052.26
+},
+{
+"m": "أكتوبر",
+"bS": 2958800,
+"aS": 4516775,
+"bC": 1711800,
+"aC": 1800578.23,
+"bO": 821200,
+"aO": null,
+"bP": 525800,
+"aP": null
+},
+{
+"m": "نوفمبر",
+"bS": 3452000,
+"aS": null,
+"bC": 1885400,
+"aC": null,
+"bO": 845300,
+"aO": null,
+"bP": 827500,
+"aP": null
+},
+{
+"m": "ديسمبر",
+"bS": 2556900,
+"aS": null,
+"bC": 1968300,
+"aC": null,
+"bO": 758900,
+"aO": null,
+"bP": -60100,
+"aP": null
+}
+],
+"opex": [
+{
+"name": "رواتب وأجور",
+"budY": 2150200,
+"budTD": 1524900,
+"act": 660811.16
+},
+{
+"name": "إيجار",
+"budY": 978400,
+"budTD": 699900,
+"act": 477497.59
+},
+{
+"name": "كهرباء ومياه",
+"budY": 447900,
+"budTD": 327100,
+"act": 521097.04
+},
+{
+"name": "وقود وسولار",
+"budY": 784600,
+"budTD": 556000,
+"act": 293975.83
+},
+{
+"name": "صيانة",
+"budY": 621300,
+"budTD": 459500,
+"act": 392425.66
+},
+{
+"name": "تسويق ودعاية",
+"budY": 659000,
+"budTD": 485600,
+"act": 495714.63
+},
+{
+"name": "اتصالات",
+"budY": 152300,
+"budTD": 114600,
+"act": 267063.62
+},
+{
+"name": "مصروفات بنكية",
+"budY": 89500,
+"budTD": 73000,
+"act": 247673.25
+},
+{
+"name": "رسوم حكومية",
+"budY": 123700,
+"budTD": 92200,
+"act": 185639.25
+},
+{
+"name": "مستلزمات مكتبية",
+"budY": 100300,
+"budTD": 72800,
+"act": 211321.8
+},
+{
+"name": "ضيافة",
+"budY": 143900,
+"budTD": 100700,
+"act": 142414.68
+}
+],
+"opexTot": {
+"budY": 6251100,
+"budTD": 4506300,
+"act": 3895634.51
+},
+"budget": [
+{
+"g": "الإيرادات",
+"name": "مبيعات أرز وحبوب",
+"total": 8183800,
+"mo": [
+642100,
+823200,
+1036300,
+708400,
+626600,
+690300,
+745000,
+712600,
+745600,
+764000,
+689700,
+null
+],
+"note": "محتاج تحديث",
+"tot": false
+},
+{
+"g": "الإيرادات",
+"name": "مبيعات سكر وزيوت",
+"total": 4706300,
+"mo": [
+428400,
+565300,
+643200,
+419600,
+399300,
+471400,
+null,
+395500,
+null,
+382500,
+488100,
+513000
+],
+"note": "محتاج تحديث",
+"tot": false
+},
+{
+"g": "الإيرادات",
+"name": "مبيعات معلبات",
+"total": 3050800,
+"mo": [
+322900,
+0,
+490000,
+316000,
+null,
+361800,
+382300,
+432300,
+345300,
+0,
+400200,
+null
+],
+"note": null,
+"tot": false
+},
+{
+"g": "الإيرادات",
+"name": "مبيعات ألبان وأجبان",
+"total": 4408200,
+"mo": [
+335200,
+460400,
+425000,
+311700,
+337100,
+359200,
+337700,
+341300,
+371800,
+366700,
+370700,
+391400
+],
+"note": "تقديري",
+"tot": false
+},
+{
+"g": "الإيرادات",
+"name": "مبيعات لحوم ودواجن مجمدة",
+"total": 6285300,
+"mo": [
+430300,
+624100,
+769500,
+472000,
+413200,
+504300,
+457800,
+468700,
+582400,
+521000,
+511800,
+530200
+],
+"note": null,
+"tot": false
+},
+{
+"g": "الإيرادات",
+"name": "مبيعات مشروبات وعصائر",
+"total": 7340900,
+"mo": [
+538500,
+789200,
+798100,
+696200,
+601500,
+652000,
+0,
+563700,
+637700,
+610400,
+691100,
+762500
+],
+"note": null,
+"tot": false
+},
+{
+"g": "الإيرادات",
+"name": "مبيعات مخبوزات وبسكويت",
+"total": 4015000,
+"mo": [
+255000,
+369900,
+449900,
+317500,
+331700,
+268700,
+321900,
+374000,
+352000,
+314200,
+300400,
+359800
+],
+"note": "؟؟",
+"tot": false
+},
+{
+"g": "الإيرادات",
+"name": "ايرادات اخرى",
+"total": 1217600,
+"mo": [
+90700,
+109600,
+130600,
+85200,
+88700,
+102900,
+107800,
+93000,
+92700,
+100000,
+106200,
+110200
+],
+"note": null,
+"tot": false
+},
+{
+"g": "الإيرادات",
+"name": "اجمالي الايرادات",
+"total": 39207900,
+"mo": [
+3043100,
+3741700,
+4742600,
+3326600,
+2798100,
+3410600,
+2352500,
+3381100,
+3127500,
+3058800,
+3558200,
+2667100
+],
+"tot": true
+},
+{
+"g": "تكلفة المبيعات",
+"name": "تكلفة أرز وحبوب",
+"total": 256900,
+"mo": [
+21500,
+30700,
+32900,
+null,
+24800,
+21700,
+22200,
+22100,
+25300,
+null,
+26700,
+29000
+],
+"note": null,
+"tot": false
+},
+{
+"g": "تكلفة المبيعات",
+"name": "تكلفة سكر وزيوت",
+"total": 262500,
+"mo": [
+20900,
+27200,
+null,
+23100,
+20600,
+25600,
+22800,
+24500,
+24800,
+23200,
+24200,
+25600
+],
+"note": "محتاج تحديث",
+"tot": false
+},
+{
+"g": "تكلفة المبيعات",
+"name": "تكلفة معلبات",
+"total": 2454000,
+"mo": [
+158100,
+258200,
+254100,
+214100,
+167400,
+180500,
+220000,
+190300,
+218600,
+189600,
+210900,
+192200
+],
+"note": null,
+"tot": false
+},
+{
+"g": "تكلفة المبيعات",
+"name": "تكلفة ألبان وأجبان",
+"total": 2620900,
+"mo": [
+265100,
+317400,
+359500,
+218000,
+202000,
+null,
+247800,
+null,
+235100,
+258500,
+248300,
+269200
+],
+"note": "تقديري",
+"tot": false
+},
+{
+"g": "تكلفة المبيعات",
+"name": "تكلفة لحوم ودواجن",
+"total": 281600,
+"mo": [
+24900,
+28700,
+29400,
+25600,
+0,
+20400,
+25100,
+27200,
+23400,
+24000,
+23500,
+29400
+],
+"note": "تقديري",
+"tot": false
+},
+{
+"g": "تكلفة المبيعات",
+"name": "تكلفة مشروبات",
+"total": 6889600,
+"mo": [
+449400,
+572100,
+782900,
+554500,
+473900,
+526500,
+627200,
+555100,
+603200,
+531200,
+653100,
+560500
+],
+"note": "حسب العقد",
+"tot": false
+},
+{
+"g": "تكلفة المبيعات",
+"name": "تكلفة مخبوزات",
+"total": 3710200,
+"mo": [
+290800,
+441500,
+496800,
+386600,
+null,
+302600,
+318400,
+0,
+324800,
+337000,
+375300,
+436400
+],
+"note": null,
+"tot": false
+},
+{
+"g": "تكلفة المبيعات",
+"name": "فاقد وتالف",
+"total": 4594900,
+"mo": [
+319700,
+467500,
+503800,
+338000,
+354500,
+351300,
+367000,
+372200,
+423200,
+348300,
+323400,
+426000
+],
+"note": "تقديري",
+"tot": false
+},
+{
+"g": "تكلفة المبيعات",
+"name": "اجمالي التكلفة",
+"total": 21070600,
+"mo": [
+1550400,
+2143300,
+2459400,
+1759900,
+1243200,
+1428600,
+1850500,
+1191400,
+1878400,
+1711800,
+1885400,
+1968300
+],
+"tot": true
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "رواتب وأجور",
+"total": 2150200,
+"mo": [
+211600,
+null,
+300900,
+null,
+197500,
+187000,
+196100,
+208200,
+223600,
+209700,
+202500,
+213100
+],
+"note": "حسب العقد",
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "تأمينات اجتماعية",
+"total": 560900,
+"mo": [
+36500,
+51800,
+67000,
+37500,
+46300,
+46900,
+47500,
+45700,
+41400,
+47300,
+41300,
+51700
+],
+"note": "تقديري",
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "ايجار المخازن",
+"total": 688300,
+"mo": [
+50900,
+65700,
+80100,
+61300,
+47700,
+0,
+59000,
+57900,
+64600,
+59000,
+71600,
+70500
+],
+"note": "؟؟",
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "ايجار المكتب",
+"total": 290100,
+"mo": [
+21100,
+25300,
+29700,
+21800,
+20200,
+21100,
+22800,
+26500,
+24200,
+26800,
+23600,
+27000
+],
+"note": "تقديري",
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "كهرباء ومياه",
+"total": 447900,
+"mo": [
+37300,
+48100,
+53900,
+39700,
+34500,
+null,
+42000,
+36400,
+35200,
+39300,
+39100,
+42400
+],
+"note": null,
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "وقود وسولار",
+"total": 784600,
+"mo": [
+64900,
+78500,
+80000,
+69700,
+55400,
+74000,
+66700,
+66800,
+null,
+75300,
+77600,
+75700
+],
+"note": null,
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "نقل وتوزيع",
+"total": 1189500,
+"mo": [
+96300,
+117200,
+139800,
+89200,
+91800,
+110600,
+107000,
+104000,
+106300,
+110900,
+116400,
+0
+],
+"note": "تقديري",
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "صيانة سيارات",
+"total": 351900,
+"mo": [
+23800,
+27400,
+38600,
+27900,
+26000,
+30400,
+30100,
+28600,
+28400,
+30400,
+29100,
+31200
+],
+"note": "محتاج تحديث",
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "صيانة مخازن",
+"total": 269400,
+"mo": [
+18400,
+21500,
+26300,
+23600,
+17400,
+19600,
+20200,
+24700,
+26600,
+18900,
+24900,
+27300
+],
+"note": null,
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "تسويق ودعاية",
+"total": 659000,
+"mo": [
+46700,
+65300,
+70500,
+51300,
+46300,
+51100,
+55400,
+49400,
+49600,
+53100,
+63900,
+56400
+],
+"note": "تقديري",
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "اتصالات وانترنت",
+"total": 152300,
+"mo": [
+11900,
+13700,
+14100,
+12000,
+10400,
+12900,
+12400,
+13800,
+13400,
+13500,
+12200,
+12000
+],
+"note": "محتاج تحديث",
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "مصروفات بنكية",
+"total": 89500,
+"mo": [
+6800,
+10400,
+9100,
+8600,
+6600,
+6700,
+8400,
+6900,
+9500,
+6900,
+0,
+9600
+],
+"note": null,
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "فوائد تمويل",
+"total": 429100,
+"mo": [
+31200,
+39900,
+44200,
+37800,
+30800,
+38100,
+31000,
+33400,
+40200,
+31600,
+35900,
+35000
+],
+"note": "حسب العقد",
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "تأمين بضائع",
+"total": 228700,
+"mo": [
+17500,
+22100,
+23800,
+15500,
+17300,
+17700,
+15500,
+19000,
+20800,
+19100,
+21100,
+19300
+],
+"note": null,
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "رسوم حكومية",
+"total": 123700,
+"mo": [
+8300,
+13000,
+11100,
+9700,
+8400,
+10300,
+9700,
+10400,
+11300,
+11200,
+10900,
+9400
+],
+"note": null,
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "مستلزمات مكتبية",
+"total": 100300,
+"mo": [
+8800,
+10300,
+11300,
+8100,
+8000,
+9600,
+null,
+8700,
+8000,
+10200,
+8000,
+9300
+],
+"note": "؟؟",
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "ضيافة",
+"total": 143900,
+"mo": [
+null,
+17600,
+15900,
+13100,
+13700,
+13200,
+14400,
+12800,
+null,
+14000,
+15500,
+13700
+],
+"note": null,
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "تدريب",
+"total": 132600,
+"mo": [
+0,
+13700,
+15800,
+11000,
+9500,
+13100,
+10900,
+10700,
+12100,
+11600,
+12900,
+11300
+],
+"note": "تقديري",
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "استشارات قانونية ومحاسبية",
+"total": 247900,
+"mo": [
+18700,
+20500,
+29500,
+20600,
+15500,
+19200,
+17100,
+19800,
+19300,
+19100,
+23400,
+25200
+],
+"note": "؟؟",
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "مصروفات متنوعة",
+"total": 184400,
+"mo": [
+14100,
+17900,
+19700,
+14100,
+12300,
+14700,
+13700,
+16700,
+13700,
+13300,
+15400,
+18800
+],
+"note": null,
+"tot": false
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "اجمالي المصروفات",
+"total": 9224200,
+"mo": [
+724800,
+679900,
+1081300,
+572500,
+715600,
+696200,
+779900,
+800400,
+748200,
+821200,
+845300,
+758900
+],
+"tot": true
+},
+{
+"g": "المصروفات التشغيلية",
+"name": "صافي الربح",
+"total": 8913100,
+"mo": [
+767900,
+918500,
+1201900,
+994200,
+839300,
+1285800,
+-277900,
+1389300,
+500900,
+525800,
+827500,
+-60100
+],
+"tot": true
+}
+],
+"mnames": [
+"يناير",
+"فبراير",
+"مارس",
+"أبريل",
+"مايو",
+"يونيو",
+"يوليو",
+"أغسطس",
+"سبتمبر",
+"أكتوبر",
+"نوفمبر",
+"ديسمبر"
+]
+};
+const $ = s => document.querySelector(s);
+const COL = {g:'#5fb54a', y:'#f4bb3d', r:'#ee7a5c'};
+const ACT = '#005A9C', BUD = '#A0E0EF';
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const MINUS = '−';
+const fmt = (n, d=0) => n==null ? '—' : (n<0?MINUS:'') + Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const sgn = (n, d=2) => n==null ? '—' : (n>0?'+':'') + fmt(n,d);
+const mil = (n, d=2) => n==null ? '—' : fmt(n/1e6, d);
+const N = t => `<span class="n">${t}</span>`;
+const pct = (v, d=0) => v==null ? '—' : fmt(v*100, d) + '%';
+
+const PER = {
+  all:[0,9,'كل الأشهر الفعلية (يناير – أكتوبر)'],
+  q1:[0,2,'الربع الأول (يناير – مارس)'],
+  q2:[3,5,'الربع الثاني (أبريل – يونيو)'],
+  q3:[6,8,'الربع الثالث (يوليو – سبتمبر)'],
+  oct:[9,9,'أكتوبر']
+};
+const MN = D.mnames;
+const state = {period:'all', mode:'months', metric:'sales', cf:null, group:'all', sort:null};
+const inPer = i => i>=PER[state.period][0] && i<=PER[state.period][1];
+
+/* sums over the selected period, only months where the actual exists */
+function sumP(a, b){
+  let act=0, bud=0, n=0;
+  D.months.forEach((m,i)=>{ if(inPer(i) && m[a]!=null){ act+=m[a]; bud+=m[b]; n++; } });
+  return {act,bud,n};
+}
+/* variance class: g = better or within 5%, y = worse by 5-20%, r = worse by >20% */
+function vcls(act, bud, higherBetter){
+  if(act==null||!bud) return 'x';
+  const p = (act-bud)/Math.abs(bud);
+  const bad = higherBetter ? -p : p;
+  return bad<=0.05 ? 'g' : bad<=0.2 ? 'y' : 'r';
+}
+function bub(val, mx, cls, text, tip, lo=28, hi=50){
+  if(val==null) return `<div class="bub x" style="width:${lo}px;height:${lo}px" data-tip="${esc(tip||'لا توجد بيانات فعلية')}">—</div>`;
+  const s = lo + (hi-lo)*Math.sqrt(Math.min(1, Math.abs(val)/(mx||1)));
+  const fs = s<34 ? 11 : 12.5;
+  return `<div class="bub ${cls}" style="width:${s.toFixed(0)}px;height:${s.toFixed(0)}px;font-size:${fs}px" data-tip="${esc(tip)}"><span class="n">${text}</span></div>`;
+}
+function bar(p, cls, label, tip){
+  const w = Math.max(0, Math.min(1, p||0))*100;
+  return `<div class="bar" data-tip="${esc(tip||'')}"><i class="${cls}" style="width:${w}%"></i><span><span class="n">${label}</span></span></div>`;
+}
+
+/* ---------- header / KPIs ---------- */
+function initHead(){
+  $('#period').innerHTML = Object.entries(PER).map(([k,v])=>`<option value="${k}">${v[2]}</option>`).join('');
+  const tot = Object.values(D.alerts).reduce((a,b)=>a+b,0);
+  $('#alertTotal').textContent = tot;
+  $('#pop').innerHTML = `<h4>صفوف تحتاج مراجعة</h4><p>بيانات ناقصة أو تحتاج قرار في الملف الأصلي</p><ul>${
+    Object.entries(D.alerts).map(([k,v])=>`<li><span>${esc(k)}</span><b class="n">${v}</b></li>`).join('')}
+    <li><b>الإجمالي</b><b class="n">${tot}</b></li></ul>`;
+  $('#alertBtn').onclick = e => { e.stopPropagation(); const p=$('#pop'); p.classList.toggle('show'); $('#alertBtn').setAttribute('aria-expanded', p.classList.contains('show')); };
+  document.addEventListener('click', e => { if(!e.target.closest('#pop')) { $('#pop').classList.remove('show'); } });
+
+  renderComp();
+}
+function renderComp(){
+  const items = D.budget.filter(l=>l.g==='الإيرادات' && !l.tot).map(l=>({name:l.name.replace('مبيعات ',''), v:l.total})).sort((a,b)=>b.v-a.v);
+  const tot = items.reduce((a,b)=>a+b.v,0);
+  const ramp = ['#1B365D','#005A9C','#2D8CC0','#60C1E5','#7CD0EA','#A0E0EF','#C0EBF5','#DDF4F9'];
+  $('#compTot').textContent = fmt(tot/1e6,1);
+  $('#stack').innerHTML = items.map((it,i)=>`<i style="width:${it.v/tot*100}%;background:${ramp[i]}" data-tip="${esc(`<b>${it.name}</b><br>${mil(it.v,2)} مليون ج · ${pct(it.v/tot,1)}`)}"></i>`).join('');
+  $('#cl').innerHTML = items.map((it,i)=>`<div><i style="background:${ramp[i]}"></i><span>${esc(it.name)}</span><span class="v">${N(pct(it.v/tot,1))}</span></div>`).join('');
+}
+function ring(p, cls){
+  const r=30, c=2*Math.PI*r, col = COL[cls]||COL.g, f=Math.min(1,Math.max(0,p));
+  return `<svg class="ring" width="76" height="76" viewBox="0 0 76 76" aria-hidden="true"><circle cx="38" cy="38" r="${r}" fill="none" stroke="#dbeaf2" stroke-width="9"/><circle cx="38" cy="38" r="${r}" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${(c*f).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 38 38)"/></svg>`;
+}
+const delta = (cls, text) => `<span class="delta ${cls}">${text}</span>`;
+function renderKpi(){
+  const s = sumP('aS','bS'), p = s.act/s.bud, sc = vcls(s.act,s.bud,true);
+  const T = D.opexTot, oc = vcls(T.act,T.budTD,false);
+  const ct = D.custTot, over = D.cust.filter(c=>c.status==='تجاوز الحد الائتماني').length;
+  const coll = ct.paid/(ct.open+ct.sales);
+  const rev = D.totals['إجمالي الموازنة: الإيرادات'], np = D.totals['إجمالي الموازنة: صافي الربح'];
+  $('#kpis').innerHTML = `
+  <div class="card kcard"><div class="kl">تحقيق مبيعات الموازنة</div>
+    <div class="krow">${ring(p,sc)}<div class="kv n">${fmt(p*100,0)}%</div></div>
+    <div class="ks">الفعلي <b>${N(mil(s.act,1))}</b> من <b>${N(mil(s.bud,1))}</b> مليون ج</div>
+    ${delta(sc, 'الفرق '+N(sgn((s.act-s.bud)/1e6,2))+' مليون')}</div>
+  <div class="card kcard"><div class="kl">المصروفات التشغيلية (البنود المقارنة)</div>
+    <div class="kv"><span class="n">${mil(T.act,2)}</span> <span style="font-size:14px;font-weight:700">مليون</span></div>
+    <div class="ks">الموازنة حتى آخر شهر بيانات <b>${N(mil(T.budTD,2))}</b> مليون ج</div>
+    ${delta(oc, N(sgn((T.act-T.budTD)/T.budTD*100,1)+'%')+' عن الموازنة')}</div>
+  <div class="card kcard"><div class="kl">المستحق على العملاء</div>
+    <div class="kv"><span class="n">${mil(ct.bal,1)}</span> <span style="font-size:14px;font-weight:700">مليون</span></div>
+    <div class="ks">نسبة التحصيل من المستحق <b>${N(pct(coll,1))}</b></div>
+    ${delta('r', N(over)+' عميل تجاوز الحد الائتماني')}</div>
+  <div class="card kcard"><div class="kl">إيرادات الموازنة السنوية</div>
+    <div class="kv"><span class="n">${mil(rev,1)}</span> <span style="font-size:14px;font-weight:700">مليون</span></div>
+    <div class="ks">صافي ربح مخطط <b>${N(mil(np,1))}</b> مليون ج</div>
+    ${delta('x','هامش مخطط '+N(pct(np/rev,1)))}</div>`;
+}
+
+/* ---------- customer status cards ---------- */
+const CGRP = c => c.status==='ضمن الحد' ? 'g' : c.status==='تجاوز الحد الائتماني' ? 'r' : 'y';
+function renderStatus(){
+  const defs = [
+    {k:'g', t:'ضمن الحد الائتماني', ic:'✓'},
+    {k:'y', t:'رصيد دائن أو حد غير محدد', ic:'!'},
+    {k:'r', t:'تجاوزوا الحد الائتماني', ic:'↑'}
+  ];
+  const tot = D.cust.length;
+  $('#status').innerHTML = defs.map(d=>{
+    const L = D.cust.filter(c=>CGRP(c)===d.k), n = L.length, bal = L.reduce((a,c)=>a+c.bal,0);
+    return `<button class="scard ${d.k} ${state.cf===d.k?'sel':''}" data-k="${d.k}" style="flex:${Math.max(n,9)} 1 0" aria-pressed="${state.cf===d.k}" title="اضغط لعرض هؤلاء العملاء في الجدول">
+      <span class="num n">${n}</span>
+      <span class="t">${d.t}</span>
+      <span class="m">${N(pct(n/tot,0))} من العملاء<br>الرصيد ${N(mil(bal,2)+'M')}</span>
+    </button>`;
+  }).join('');
+  document.querySelectorAll('.scard').forEach(b=>b.onclick=()=>{
+    state.cf = state.cf===b.dataset.k ? null : b.dataset.k;
+    state.mode = 'cust'; state.sort = null; renderAll();
+    $('.tcard').scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+}
+
+/* ---------- chart ---------- */
+const METRICS = {
+  sales:{t:'المبيعات', b:'bS', a:'aS', hb:true,  sub:'المبيعات قبل الضريبة'},
+  cost: {t:'التكلفة',  b:'bC', a:'aC', hb:false, sub:'تكلفة المبيعات (الفعلي = المشتريات بالجنيه)'},
+  opex: {t:'المصروفات',b:'bO', a:'aO', hb:false, sub:'المصروفات التشغيلية'},
+  profit:{t:'صافي الربح',b:'bP', a:'aP', hb:true, sub:'صافي الربح'}
+};
+function niceStep(range){ const raw=range/4, p=Math.pow(10,Math.floor(Math.log10(raw))), f=raw/p; return (f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*p; }
+function barPath(x,w,yBase,yVal,r){
+  const h=Math.abs(yVal-yBase); if(h<0.5) return `M${x} ${yBase}h${w}v0.5h${-w}Z`;
+  r=Math.min(r,h,w/2); const up = yVal<yBase;
+  return up ? `M${x} ${yBase}V${yVal+r}Q${x} ${yVal} ${x+r} ${yVal}H${x+w-r}Q${x+w} ${yVal} ${x+w} ${yVal+r}V${yBase}Z`
+            : `M${x} ${yBase}V${yVal-r}Q${x} ${yVal} ${x+r} ${yVal}H${x+w-r}Q${x+w} ${yVal} ${x+w} ${yVal-r}V${yBase}Z`;
+}
+function renderChart(){
+  const cfg = METRICS[state.metric];
+  const bud = D.months.map(m=>m[cfg.b]), act = D.months.map(m=>m[cfg.a]);
+  const all = [...bud,...act].filter(v=>v!=null);
+  let lo = Math.min(0,...all), hi = Math.max(0,...all);
+  const step = niceStep(hi-lo); lo = Math.floor(lo/step)*step; hi = Math.ceil(hi/step)*step;
+  const W=1000,H=300, R=62, L=10, T=14, B=34, pw=W-R-L, ph=H-T-B, slot=pw/12, bw=Math.min(24, slot*0.32);
+  const Y = v => T + (hi-v)/(hi-lo)*ph, y0 = Y(0);
+  let s='';
+  for(let v=lo; v<=hi+1e-6; v+=step){
+    s += `<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" stroke="${Math.abs(v)<1e-6?'#c7d4e4':'#e3ecf6'}" stroke-width="1"/>`;
+    s += `<text x="${W-R+8}" y="${Y(v)+4}" font-size="11" fill="#7b8798" direction="ltr" text-anchor="start">${fmt(v/1e6,1)}م</text>`;
+  }
+  for(let i=0;i<12;i++){
+    const cx = (W-R) - slot*(i+0.5), dim = (act[i]!=null && !inPer(i)) ? .3 : 1;
+    const a=act[i], b=bud[i];
+    const diff = a!=null ? a-b : null;
+    const tip = `<b>${MN[i]}</b><br><span class="d">الموازنة:</span> ${mil(b,2)} م`+
+      (a!=null ? `<br><span class="d">الفعلي:</span> ${mil(a,2)} م<br><span class="d">الفرق:</span> ${sgn(diff/1e6,2)} م${b?` (${sgn(diff/Math.abs(b)*100,0)}%)`:''}` : `<br><span class="d">لا يوجد فعلي لهذا الشهر</span>`);
+    s += `<g class="col" data-tip="${esc(tip)}"><rect class="hit" x="${cx-slot/2+2}" y="${T-6}" width="${slot-4}" height="${ph+B+4}" rx="10"/>`;
+    s += `<g opacity="${dim}">`;
+    s += `<path d="${barPath(cx+1,bw,y0,Y(b),5)}" fill="${BUD}"/>`;
+    if(a!=null){
+      const neg = a<0 && state.metric==='profit';
+      s += `<path d="${barPath(cx-1-bw,bw,y0,Y(a),5)}" fill="${neg?COL.r:ACT}"/>`;
+    }
+    s += `</g><text x="${cx}" y="${H-10}" text-anchor="middle" font-size="12" font-weight="${inPer(i)&&act[i]!=null?700:500}" fill="${inPer(i)&&act[i]!=null?'#1d2433':'#7b8798'}">${MN[i]}</text></g>`;
+  }
+  $('#chart').innerHTML = s;
+  $('#chartTitle').textContent = `${cfg.t}: الفعلي مقابل الموازنة شهرياً`;
+  $('#chartLegend').innerHTML = `<span><i style="background:${BUD}"></i>الموازنة</span><span><i style="background:${ACT}"></i>الفعلي</span>` + (state.metric==='profit'?`<span><i style="background:${COL.r}"></i>خسارة فعلية</span>`:'');
+  const t = sumP(cfg.a, cfg.b);
+  if(t.n){ const d=t.act-t.bud; $('#chartSum').innerHTML = `${cfg.sub} في «${PER[state.period][2]}»: الفعلي <b>${N(mil(t.act,2)+' م')}</b> مقابل موازنة <b>${N(mil(t.bud,2)+' م')}</b> · الفرق <b>${N(sgn(d/1e6,2)+' م')}</b> ${t.bud?`(${N(sgn(d/Math.abs(t.bud)*100,0)+'%')})`:''}${state.metric!=='sales'&&state.metric!=='profit'||false?'':''}`; }
+  else $('#chartSum').textContent = 'لا توجد بيانات فعلية لهذه الفترة.';
+  document.querySelectorAll('#metricSeg button').forEach(b=>b.classList.toggle('on', b.dataset.m===state.metric));
+}
+
+/* ---------- table modes ---------- */
+const LEG_VAR = [['g','أفضل من الموازنة أو ضمن 5%'],['y','أسوأ بنسبة 5–20%'],['r','أسوأ بأكثر من 20%']];
+const TT = {g:'var(--tg)',y:'var(--ty)',r:'var(--tr)'};
+
+const MODES = {
+  months(){
+    const rows = D.months.map((m,i)=>({m,i})).filter(o=>inPer(o.i)).map(({m,i})=>{
+      const ach = m.aS/m.bS;
+      return {name:MN[i], i, aS:m.aS, bS:m.bS, ach, vS:m.aS-m.bS,
+        vC:m.aC!=null?m.aC-m.bC:null, vO:m.aO!=null?m.aO-m.bO:null, m, cls: ach<.75?'r':ach<.95?'y':'g'};
+    });
+    const mx = k => Math.max(...rows.map(r=>Math.abs(r[k]||0)),1);
+    const mS=mx('vS'), mC=mx('vC'), mO=mx('vO');
+    const bv = (r,k,mxv,a,b,hb,lbl)=>{
+      const v=r[k]; if(v==null) return bub(null);
+      const tip=`<b>${r.name} · ${lbl}</b><br>الفعلي ${mil(r.m[a],2)} م مقابل موازنة ${mil(r.m[b],2)} م<br>الفرق ${sgn(v/1e6,2)} م (${sgn(v/Math.abs(r.m[b])*100,0)}%)`;
+      return bub(v,mxv,vcls(r.m[a],r.m[b],hb),sgn(v/1e6,2),tip);
+    };
+    const sC=sumP('aC','bC'), sO=sumP('aO','bO'), sS=sumP('aS','bS');
+    const total = {name:'الإجمالي', aS:sS.act,bS:sS.bud, ach:sS.act/sS.bud, vS:sS.act-sS.bud, vC:sC.n?sC.act-sC.bud:null, vO:sO.n?sO.act-sO.bud:null,
+      cells:[]};
+    return {
+      title:'أداء الأشهر: الفعلي مقابل الموازنة', legend:LEG_VAR, extra:'',
+      cols:[
+        {l:'الشهر', s:r=>r.i, r:r=>esc(r.name)},
+        {l:'المبيعات: فعلي / موازنة (م)', s:r=>r.aS, r:r=>`${N(mil(r.aS,2)+' / '+mil(r.bS,2))}`},
+        {l:'نسبة تحقيق المبيعات', s:r=>r.ach, r:r=>bar(r.ach,r.cls,fmt(r.ach*100,0)+'%',`${r.name}: ${mil(r.aS,2)} م من ${mil(r.bS,2)} م`)},
+        {l:'فرق المبيعات (م)', s:r=>r.vS, r:r=>bv(r,'vS',mS,'aS','bS',true,'المبيعات')},
+        {l:'فرق التكلفة (م)', s:r=>r.vC, r:r=>bv(r,'vC',mC,'aC','bC',false,'تكلفة المبيعات')},
+        {l:'فرق المصروفات (م)', s:r=>r.vO, r:r=>bv(r,'vO',mO,'aO','bO',false,'المصروفات')}
+      ],
+      rows,
+      total: rows.length>1 ? {cls:'tot', cells:[
+        `<b>الإجمالي</b>`, N(mil(total.aS,2)+' / '+mil(total.bS,2)),
+        bar(total.ach, total.ach<.75?'r':total.ach<.95?'y':'g', fmt(total.ach*100,0)+'%',''),
+        bub(total.vS,Math.max(mS,Math.abs(total.vS)),vcls(total.aS,total.bS,true),sgn(total.vS/1e6,2),`إجمالي الفترة: الفرق ${sgn(total.vS/1e6,2)} م`),
+        total.vC==null?bub(null):bub(total.vC,Math.max(mC,Math.abs(total.vC)),vcls(sC.act,sC.bud,false),sgn(total.vC/1e6,2),`إجمالي الفترة: الفرق ${sgn(total.vC/1e6,2)} م`),
+        total.vO==null?bub(null):bub(total.vO,Math.max(mO,Math.abs(total.vO)),vcls(sO.act,sO.bud,false),sgn(total.vO/1e6,2),`إجمالي الفترة (الأشهر التي بها فعلي): الفرق ${sgn(total.vO/1e6,2)} م`)
+      ]} : null
+    };
+  },
+  opex(){
+    const rows = D.opex.map(o=>{
+      const v=o.act-o.budTD, ach=o.act/o.budTD;
+      return {name:o.name, act:o.act, budTD:o.budTD, budY:o.budY, v, ach, cls:(c=>c==='x'?'':c)(vcls(o.act,o.budTD,false))};
+    });
+    const mx=Math.max(...rows.map(r=>Math.abs(r.v)));
+    const T=D.opexTot, tv=T.act-T.budTD;
+    return {
+      title:'المصروفات التشغيلية حسب البند', legend:LEG_VAR, extra:'',
+      cols:[
+        {l:'البند', s:r=>r.name, r:r=>esc(r.name)},
+        {l:'فعلي / موازنة حتى آخر شهر (ألف ج)', s:r=>r.act, r:r=>N(fmt(r.act/1e3,0)+' / '+fmt(r.budTD/1e3,0))},
+        {l:'نسبة الصرف من الموازنة', s:r=>r.ach, r:r=>bar(r.ach,r.cls||'b',fmt(r.ach*100,0)+'%',`${r.name}: صُرف ${fmt(r.act/1e3,0)} ألف من ${fmt(r.budTD/1e3,0)} ألف`)},
+        {l:'الفرق (ألف ج)', s:r=>r.v, r:r=>bub(r.v,mx,r.cls||'x',sgn(r.v/1e3,0),`<b>${r.name}</b><br>الفرق ${sgn(r.v/1e3,0)} ألف ج (${sgn(r.v/r.budTD*100,0)}%)`)},
+        {l:'الموازنة السنوية (ألف ج)', s:r=>r.budY, r:r=>`<span class="muted">${N(fmt(r.budY/1e3,0))}</span>`}
+      ],
+      rows,
+      total:{cls:'tot', cells:['<b>الإجمالي (البنود المقارنة)</b>', N(fmt(T.act/1e3,0)+' / '+fmt(T.budTD/1e3,0)),
+        bar(T.act/T.budTD,'b',fmt(T.act/T.budTD*100,0)+'%',''), bub(tv,mx,vcls(T.act,T.budTD,false),sgn(tv/1e3,0),`الفرق الإجمالي ${sgn(tv/1e3,0)} ألف ج`), `<span class="muted">${N(fmt(T.budY/1e3,0))}</span>`]}
+    };
+  },
+  cust(){
+    let L = D.cust.map(c=>({...c, g:CGRP(c)}));
+    if(state.cf) L = L.filter(c=>c.g===state.cf);
+    const mxS=Math.max(...L.map(c=>Math.abs(c.sales)),1), mxP=Math.max(...L.map(c=>c.paid),1), mxB=Math.max(...L.map(c=>Math.abs(c.bal)),1);
+    const lbl = {g:'ضمن الحد',y:'رصيد دائن / حد غير محدد',r:'تجاوز الحد الائتماني'};
+    const T = D.custTot;
+    return {
+      title:'أرصدة العملاء والحد الائتماني',
+      legend:[['g','ضمن الحد'],['y','رصيد دائن / حد غير محدد'],['r','تجاوز الحد الائتماني']],
+      extra: state.cf ? `<button class="clear" id="clearF">تصفية: ${lbl[state.cf]} ✕</button>` : '',
+      cols:[
+        {l:'العميل', s:r=>r.name, r:r=>esc(r.name)},
+        {l:'الرصيد / الحد الائتماني (ألف ج)', s:r=>r.bal, r:r=>N(fmt(r.bal/1e3,0)+' / '+(r.limit==null?'—':fmt(r.limit/1e3,0)))},
+        {l:'استخدام الحد الائتماني', s:r=>r.limit?r.bal/r.limit:-1, r:r=>{
+            if(r.limit==null) return `<span class="tag">غير محدد</span>`;
+            if(r.bal<0) return `<span class="tag y">رصيد دائن</span>`;
+            const u=r.bal/r.limit; return bar(u,r.g,fmt(u*100,0)+'%',`${r.name}: الرصيد ${fmt(r.bal/1e3,0)} ألف مقابل حد ${fmt(r.limit/1e3,0)} ألف`);
+        }},
+        {l:'المبيعات شامل الضريبة (م)', s:r=>r.sales, r:r=>bub(r.sales,mxS,'b',mil(r.sales,2),`<b>${r.name}</b><br>صافي المبيعات شامل الضريبة ${mil(r.sales,2)} م`)},
+        {l:'التحصيلات (م)', s:r=>r.paid, r:r=>bub(r.paid,mxP,'b',mil(r.paid,2),`<b>${r.name}</b><br>التحصيلات ${mil(r.paid,2)} م`)},
+        {l:'الرصيد الحالي (م)', s:r=>r.bal, r:r=>bub(r.bal,mxB,r.g,mil(r.bal,2),`<b>${r.name}</b><br>الرصيد الافتتاحي ${mil(r.open,2)} م<br>الرصيد الحالي ${mil(r.bal,2)} م`)}
+      ],
+      rows:L.map(c=>({...c,cls:c.g})),
+      total: state.cf ? null : {cls:'tot', cells:[`<b>الإجمالي (${D.cust.length} عميل)</b>`, '', '', bub(T.sales,T.sales,'x',mil(T.sales,1),''), bub(T.paid,T.sales,'x',mil(T.paid,1),''), bub(T.bal,T.sales,'x',mil(T.bal,1),'')].map((c,i)=>c)}
+    };
+  },
+  budget(){
+    const gt = {}; D.budget.filter(l=>l.tot).forEach(l=>gt[l.g]=l.total);
+    let L = D.budget.filter(l=>!l.tot && (state.group==='all'||l.g===state.group)).map(l=>{
+      const miss = l.mo.filter(x=>x==null).length, note=l.note||'';
+      const cls = (miss>=2||note==='؟؟') ? 'r' : (miss===1||note==='محتاج تحديث') ? 'y' : '';
+      return {name:l.name, g:l.g, total:l.total, share:l.total/gt[l.g], miss, note, cls, mo:l.mo};
+    });
+    const mx = Math.max(...L.map(r=>r.total),1);
+    return {
+      title:'بنود الموازنة السنوية',
+      legend:[['r','شهران فارغان أو أكثر، أو ملاحظة «؟؟»'],['y','شهر فارغ أو «محتاج تحديث»']],
+      extra:`<div class="gchips" id="gchips">${[['all','الكل'],['الإيرادات','الإيرادات'],['تكلفة المبيعات','تكلفة المبيعات'],['المصروفات التشغيلية','المصروفات التشغيلية']].map(([k,t])=>`<button data-g="${k}" class="${state.group===k?'on':''}">${t}</button>`).join('')}</div>`,
+      cols:[
+        {l:'البند', s:r=>r.name, r:r=>esc(r.name)},
+        {l:'المجموعة', s:r=>r.g, r:r=>`<span class="muted" style="font-size:12px">${esc(r.g)}</span>`},
+        {l:'الموازنة السنوية (م)', s:r=>r.total, r:r=>N(mil(r.total,2))},
+        {l:'حصته من المجموعة', s:r=>r.share, r:r=>bar(r.share*1.0/Math.max(...L.filter(x=>x.g===r.g).map(x=>x.share)),'b',fmt(r.share*100,1)+'%',`${r.name}: ${mil(r.total,2)} م من ${mil(gt[r.g],2)} م`)},
+        {l:'أشهر فارغة', s:r=>r.miss, r:r=>r.miss? bub(r.miss,4,r.miss>=2?'r':'y',String(r.miss),`<b>${r.name}</b><br>أشهر بلا رقم في الموازنة: ${r.mo.map((v,i)=>v==null?MN[i]:null).filter(Boolean).join('، ')}`,28,40) : `<span class="muted">0</span>`},
+        {l:'ملاحظة', s:r=>r.note, r:r=>r.note?`<span class="tag ${r.note==='؟؟'?'r':r.note==='محتاج تحديث'?'y':''}">${esc(r.note)}</span>`:''}
+      ],
+      rows:L, total:null
+    };
+  }
+};
+
+function renderTable(){
+  const cfg = MODES[state.mode]();
+  $('#tTitle').textContent = cfg.title;
+  $('#tExtra').innerHTML = cfg.extra;
+  const pal = state.mode==='months';
+  $('.tcard').classList.toggle('pal-brand', pal);
+  const LC = pal ? {g:'#60C1E5',y:'#005A9C',r:'#1B365D'} : COL;
+  $('#tLegend').innerHTML = cfg.legend.map(([k,t])=>`<span><i class="o" style="background:${LC[k]}"></i>${t}</span>`).join('');
+  let rows = cfg.rows.slice();
+  const ci = state.sort ? state.sort.col : -1;
+  if(ci>=0 && cfg.cols[ci]){
+    const f = cfg.cols[ci].s, d = state.sort.dir;
+    rows.sort((a,b)=>{ const x=f(a), y=f(b); if(x==null) return 1; if(y==null) return -1;
+      return (typeof x==='string' ? x.localeCompare(y,'ar') : x-y)*d; });
+  }
+  $('#thead').innerHTML = `<tr>${cfg.cols.map((c,i)=>`<th data-c="${i}" class="${ci===i?'sorted':''}">${c.l}<span class="ar">${ci===i?(state.sort.dir>0?'▲':'▼'):'↕'}</span></th>`).join('')}</tr>`;
+  let h = rows.map(r=>`<tr class="${r.cls||''}">${cfg.cols.map(c=>`<td>${c.r(r)}</td>`).join('')}</tr>`).join('');
+  if(cfg.total) h += `<tr class="tot">${cfg.total.cells.map(c=>`<td>${c}</td>`).join('')}</tr>`;
+  if(!rows.length) h = `<tr><td colspan="${cfg.cols.length}" class="muted" style="text-align:center">لا توجد بيانات لهذه الفترة</td></tr>`;
+  $('#tbody').innerHTML = h;
+  document.querySelectorAll('#thead th').forEach(th=>th.onclick=()=>{
+    const c=+th.dataset.c; state.sort = state.sort && state.sort.col===c ? {col:c,dir:-state.sort.dir} : {col:c,dir:(c===0&&state.mode!=='months'?1:-1)};
+    if(state.mode==='months'&&c===0) state.sort.dir = state.sort.dir; renderTable();
+  });
+  const cl=$('#clearF'); if(cl) cl.onclick=()=>{state.cf=null; renderAll();};
+  document.querySelectorAll('#gchips button').forEach(b=>b.onclick=()=>{state.group=b.dataset.g; renderTable();});
+}
+
+function renderAll(){
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on', b.dataset.mode===state.mode));
+  renderKpi(); renderStatus(); renderChart(); renderTable();
+}
+
+/* ---------- tooltip ---------- */
+const tip = $('#tip');
+document.addEventListener('mouseover', e=>{
+  const t = e.target.closest('[data-tip]');
+  if(!t){ tip.style.opacity=0; return; }
+  const v = t.getAttribute('data-tip'); if(!v){ tip.style.opacity=0; return; }
+  tip.innerHTML = v; tip.style.opacity = 1;
+});
+document.addEventListener('mousemove', e=>{
+  if(tip.style.opacity!=='1') return;
+  const w=tip.offsetWidth, h=tip.offsetHeight;
+  let x=e.clientX+14, y=e.clientY+16;
+  if(x+w>innerWidth-8) x=e.clientX-w-14;
+  if(y+h>innerHeight-8) y=e.clientY-h-12;
+  tip.style.left=Math.max(8,x)+'px'; tip.style.top=Math.max(8,y)+'px';
+});
+document.addEventListener('mouseleave', ()=>tip.style.opacity=0);
+
+/* ---------- wiring ---------- */
+initHead();
+$('#period').onchange = e => { state.period=e.target.value; renderAll(); };
+document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{ state.mode=b.dataset.mode; state.sort=null; if(state.mode!=='cust') state.cf=null; renderAll(); });
+document.querySelectorAll('#metricSeg button').forEach(b=>b.onclick=()=>{ state.metric=b.dataset.m; renderChart(); });
+renderAll();
+</script>
+</body>
+</html>
